@@ -5,6 +5,11 @@ import java.util.Scanner;
 
 public class GameOf15 {
 
+    private int counter=0;
+
+    private long startTime;
+    private long endTime;
+
 
     private Scanner sc= new Scanner(System.in);
 
@@ -190,6 +195,15 @@ public class GameOf15 {
         return false;
     }
 
+    private void printDuration(){
+        System.out.println("Time taken for finding the best move: "+(endTime-startTime)+" milli seconds");
+    }
+
+    private void printComputations(){
+        System.out.println("Number of computations for finding the best move: "+counter);
+        counter=0;
+    }
+
     // This is the minimax function. It considers all
     // the possible ways the game can go and returns
     // the value of the board
@@ -253,8 +267,11 @@ public class GameOf15 {
                                 board[i][j] = d;
                                 availableDigits[d]=false;
 
+
                                 // Call minimax recursively and choose the maximum value
                                 int moveVal= minimax(board, depth + 1, !isMax);
+                                counter++;
+
                                 // best = Math.max(best, eval);
 
                                 // Undo the move
@@ -321,6 +338,8 @@ public class GameOf15 {
                                 // Call minimax recursively and choose
                                 // the minimum value
                                 int moveVal= (minimax(board, depth + 1, !isMax));
+
+                                counter++;
                                 // best = Math.min(best, eval);
 
                                 // Undo the move
@@ -408,6 +427,7 @@ public class GameOf15 {
                             // compute evaluation function for this
                             // move.
                             int moveVal = minimax(board, depth, false);
+                            counter++;
 
                             // System.out.println("The value of the Move "+d+" at row "+i+" col "+j+" is: "+moveVal);
 
@@ -493,6 +513,7 @@ public class GameOf15 {
                             // compute evaluation function for this
                             // move.
                             int moveVal = minimax(board, depth, true);
+                            counter++;
 
 
                             // System.out.println("The value of the Move "+d+" at row "+i+" col "+j+" is: "+moveVal);
@@ -552,7 +573,7 @@ public class GameOf15 {
         System.out.println("--------------------------------------------");
     }
 
-    // intitiate the game
+    // initiate the game
 
     public void startGame(){
 
@@ -565,18 +586,35 @@ public class GameOf15 {
         //take the input of any particular stage from user
         takeInput();
 
+        startTime= System.currentTimeMillis();
+
         // finding the depth of the game at user given stage given by user
         int depth= findDepth();
 
         // Check if there are no more moves left, if yes then terminate the program
         checkMovesLeft(depth);
 
+        // ai will go for the move depending on input depth and add the next move values to the board
+        if(depth%2==0){
+            Move bestMove= playEven(input,depth);
+            addToBoard(bestMove.row, bestMove.col, bestMove.number);
+        }
+        else{  // go for the odd
+            Move bestMove= playOdd(input,depth);
+            addToBoard(bestMove.row, bestMove.col, bestMove.number);
+        }
 
-        // Move bestMove= playOdd(input,depth);
-        Move bestMove= playEven(input,depth);
+
+//         Move bestMove= playOdd(input,depth);
+//        Move bestMove= playEven(input,depth);
+
+        endTime= System.currentTimeMillis();
 
         //adding the next move values to the board
-        addToBoard(bestMove.row, bestMove.col, bestMove.number);
+//        addToBoard(bestMove.row, bestMove.col, bestMove.number);
+
+        printComputations();
+        printDuration();
 
         printBoard();
 
@@ -600,6 +638,9 @@ public class GameOf15 {
                 //take the input of any particular stage from user
                 takeInput();
 
+
+                startTime= System.currentTimeMillis();
+
                 // finding the depth of the game at a particular stage
                 depth= findDepth();
 
@@ -608,11 +649,26 @@ public class GameOf15 {
 
                 // getting the best next move from the ai player
 
-                // bestMove= playOdd(input,depth);
-                bestMove= playEven(input,depth);
+                // ai will go for the move depending on input depth and add the next move values to the board
+                if(depth%2==0){
+                    Move bestMove= playEven(input,depth);
+                    addToBoard(bestMove.row, bestMove.col, bestMove.number);
+                }
+                else{  // go for the odd
+                    Move bestMove= playOdd(input,depth);
+                    addToBoard(bestMove.row, bestMove.col, bestMove.number);
+                }
+
+//                 bestMove= playOdd(input,depth);
+//                bestMove= playEven(input,depth);
+
+                endTime= System.currentTimeMillis();
 
                 //adding the next move values to the board
-                addToBoard(bestMove.row, bestMove.col, bestMove.number);
+//                addToBoard(bestMove.row, bestMove.col, bestMove.number);
+
+                printComputations();
+                printDuration();
 
                 printBoard();
 
