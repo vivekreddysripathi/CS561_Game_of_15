@@ -594,7 +594,13 @@ public class GameOf15 {
         // Check if there are no more moves left, if yes then terminate the program
         checkMovesLeft(depth);
 
+        // getting the best next move from the ai player 
+
+        // ai gets to forced to choose odd/even depending upon the input string
+
         // ai will go for the move depending on input depth and add the next move values to the board
+
+        //go for the even move
         if(depth%2==0){
             Move bestMove= playEven(input,depth);
             addToBoard(bestMove.row, bestMove.col, bestMove.number);
@@ -604,14 +610,7 @@ public class GameOf15 {
             addToBoard(bestMove.row, bestMove.col, bestMove.number);
         }
 
-
-//         Move bestMove= playOdd(input,depth);
-//        Move bestMove= playEven(input,depth);
-
         endTime= System.currentTimeMillis();
-
-        //adding the next move values to the board
-//        addToBoard(bestMove.row, bestMove.col, bestMove.number);
 
         printComputations();
         printDuration();
@@ -647,9 +646,13 @@ public class GameOf15 {
                 // Check if there are no more moves left, if yes then terminate the program
                 checkMovesLeft(depth);
 
-                // getting the best next move from the ai player
+                // getting the best next move from the ai player 
+
+                // ai gets to forced to choose odd/even depending upon the input string
 
                 // ai will go for the move depending on input depth and add the next move values to the board
+
+                //go for the even move
                 if(depth%2==0){
                     Move bestMove= playEven(input,depth);
                     addToBoard(bestMove.row, bestMove.col, bestMove.number);
@@ -659,13 +662,7 @@ public class GameOf15 {
                     addToBoard(bestMove.row, bestMove.col, bestMove.number);
                 }
 
-//                 bestMove= playOdd(input,depth);
-//                bestMove= playEven(input,depth);
-
                 endTime= System.currentTimeMillis();
-
-                //adding the next move values to the board
-//                addToBoard(bestMove.row, bestMove.col, bestMove.number);
 
                 printComputations();
                 printDuration();
